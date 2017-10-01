@@ -1,0 +1,454 @@
+﻿@import url(http://fonts.googleapis.com/css?family=BenchNine);
+@import url(https://fonts.googleapis.com/css?family=Candal);
+/** tg estilo tabla general */
+#html, #body {
+height: 100%; / * hacer que la tempAmbiente llene toda la altura * /
+}
+
+#contenidoprincipal  {
+height: 100%;  / * empuja el pie hacia abajo * /
+}	
+
+.logo
+{
+	font-family: 'Candal', sans-serif;
+	font-size:20px;
+	background-color: #26759F;
+	color:#FFFFFF;
+}
+
+.navbar
+{
+	
+	color:#26759F;
+}
+.tg  {border-collapse:collapse;
+	border-spacing:0;
+	border:4px solid white;
+	
+	}
+	
+.tg td{
+	font-family: 'BenchNine', sans-serif;
+	font-size:20px;
+	padding:10px 5px;
+	border-style:solid;
+	border-width:0px;
+	overflow:hidden;
+	word-break:normal;
+
+
+	
+	}
+
+.tg th{
+	font-family:Arial, sans-serif;
+	font-size:14px;
+	font-weight:normal;
+	padding:10px 5px;
+	border-style:solid;
+	border-width:0px;
+	overflow:hidden;
+	word-break:normal;
+
+	
+
+	}
+	
+.tg .tablaparam{
+		border-style:solid;
+	    border-width:1px;
+		border-color:#ffffff;
+		font-size:15px;
+		
+	}
+	
+.tg .tg-0ord{text-align:right}
+.tg .tg-s6z2{
+	text-align:center;
+	border-radius:5px;
+}
+.tg .tg-228w{
+	text-align:left;
+	font-size:20px;
+	color:#ffffff /* blanco */
+}
+
+.consumo{
+	color:#ffffff /* blanco */
+	font-size:15px;
+}
+
+.temp_grande{
+	font-size:100px;
+}
+.SelectModo{
+	width:30px;
+	height:30px;
+}
+
+.bullet
+{
+	border:0px;
+	width:30px;
+	height:30px;
+}
+
+.Formulario_conf{
+	fot-family: 'BenchNine', sans-serif;
+	font-size:30px;
+	color:#547FAE;
+}
+
+#marco_superior
+{
+	background-color:#656565; /* gris */
+}
+
+#marco_inf
+{
+	background-color:#e8edff; /* azul claro */
+	color:#547FAE;
+}
+
+
+.mifooter{
+	/*position: fixed;
+	bottom: 0px;
+	
+		
+	top : 50px;
+	width: 100%; 
+	height: 60px;
+	*/
+	display:flex; 
+	align-items: center;
+	/*background-color: #e8edff;*/ 
+
+
+}
+#loading {
+ 
+ 	align-items: center;
+
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: block;
+   opacity: 0.7;
+   background-color: #fff;
+   z-index: 99;
+   text-align: center;
+}
+
+#loading-image {
+ 
+
+  z-index: 100;
+}
+
+
+
+
+.cabecera 
+{
+ background-color: #0480be;
+ color:#FFFFFF;
+}
+
+.fullscreen {
+    width: 100% ;
+    height: 100% ;
+    margin: 0;
+    top: 0;
+    left: 0;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	
+	text-align: center;
+}
+
+.center{
+
+margin-left: 80px;
+margin-right: auto;
+}
+.pppp
+{
+	font-family: 'Candal', sans-serif;
+	font-size:25px;
+	
+}
+
+.cabecera
+{
+/**	position: fixed;
+  width: 100%;
+ **/
+}
+
+
+
+/* Móviles en vertical */
+
+@media (max-width: 480px)  {
+
+
+.pppp
+{
+	font-family: 'Candal', sans-serif;
+	font-size:10px;
+	
+}
+
+.pp
+{
+	
+	display: table-cell;
+	text-align: center;
+    vertical-align: middle;
+}
+.campo
+{
+	color="#ECF015"
+	font-size:10px;
+
+}
+
+.center{
+
+margin-left: 10px;
+margin-right: auto;
+}
+.div_campo{
+	float:left;
+	 
+
+}
+
+
+.div_campo1{
+	margin-left: 50px;
+	font-size:18px;
+}
+
+.div_clima{
+	margin-left: 60px
+}
+
+.div_clima1{
+	margin-left: 66px
+}
+.div_modo{
+	margin-left: 74px
+}
+.div_modoClima{
+	margin-left: 92px
+}
+.div_tempclima{
+	margin-left: 60px
+}
+.div_tempclima1{
+	margin-left: 79px
+}
+.div_tempclima2{
+	margin-left: 54px
+}
+.div_tempclima3{
+	margin-left: 43px
+}
+
+.div_acs{
+	margin-left: 121px
+}
+
+.div_tempacs{
+	margin-left: 65px
+}
+
+.text_clima
+{
+	margin-top:11px;
+}
+
+.text_tempclima{
+	margin-top:20px;
+}
+}
+
+ 
+/* Móviles en horizontal o tablets en vertical */
+  
+@media (max-width: 767px) { 
+
+  
+.pppp
+{
+	font-family: 'Candal', sans-serif;
+	font-size:15px;
+	
+}
+
+.pp
+{
+	
+	display: table-cell;
+	text-align: center;
+    vertical-align: middle;
+}
+.campo
+{
+	
+	font-size:10 px;
+}
+
+.center{
+
+margin-left: 40px;
+margin-right: auto;
+}
+
+.div_campo .div_campo1 .div_clima .div_tempclima .div_acs .div_tempacs{
+
+}
+
+.text_clima .text_tempclima{
+}
+}
+ 
+/* Tablets en horizonal y escritorios normales */
+  
+@media (min-width: 768px) and (max-width: 1199px) { 
+
+
+.pppp
+{
+	font-family: 'Candal', sans-serif;
+	font-size:25px;
+	
+}
+
+.pp
+{
+	
+	display: table-cell;
+	text-align: center;
+    vertical-align: middle;
+}
+
+.campo
+{
+	font-size:15px;
+}
+
+
+.center{
+
+margin-left: 80px;
+margin-right: auto;
+}
+
+.div_campo .div_campo1 .div_clima .div_tempclima .div_acs .div_tempacs{
+
+}
+
+.text_clima .text_tempclima{
+}
+
+}
+
+
+
+@media screen and (max-width: 767px) {
+	.tg {width: auto !important;}
+	.tg col {width: auto !important;}
+	.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}
+	.tg-228w{
+	text-align:left;
+	font-size:10px;
+	color:#ffffff /* blanco */
+}
+	}
+
+.consumo_main{
+	text-align:left;
+	font-size:80px;
+	
+}
+
+.consumo_main_small{
+	text-align:left;
+	font-size:15px;
+	
+}
+
+.consumo_main_medio{
+	text-align:left;
+	font-size:30px;
+	
+}
+
+.cuadro {
+	-khtml-border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+border: 2px solid #cccccc;
+background-color:#dddddd
+}
+
+.icono{
+	
+	font-size:15px;
+	 
+}
+
+.padre_allado
+{
+	width:100%
+}
+.allado{
+     margin:5px;
+	 display: table-cell;
+	
+}
+
+.fontpequena
+{
+		font-size:12px;
+}
+
+.paneltrane{
+	
+	font-size:15px;
+	height:30px;
+	
+	
+}
+
+.tranePanel
+{
+	width:250px;
+}
+
+#errorfaldon
+{
+	background-color:#FF0000;
+	margin-top: 0px;
+	font-size:15px;
+	color:#ffffff 
+}
+
+.icono_warning
+{
+	color:#FF0000;
+}

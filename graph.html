@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+	
+	
+	
+  
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+	<script src="assets/js/Chart.js"></script>
+    
+	 
+    <script type="text/javascript"  src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript"  src="assets/js/moment-with-locales.min.js"></script>
+	<script type="text/javascript"  src="assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript"  src="assets/js/bootstrap-datetimepicker.es-ES.js"></script>
+	
+	
+	
+
+	<script type="text/javascript" src="assets/js/datepair.min.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.datepair.min.js"></script>
+	
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+	
+
+    
+	<link rel="stylesheet" href="assets/css/jquery-ui.min.css">
+
+	<!-- Bootstrap -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+
+	
+	<link rel="stylesheet" type="text/css" href="assets/css/graph.css">
+	
+	<script type="text/javascript" src="assets/js/graph.js"></script>
+	<script type="text/javascript" src="assets/js/comun.js"></script>
+	<script type="text/javascript" src="assets/js/register.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/register.css">
+	
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-datetimepicker.min.css">
+	
+</head>
+<body role="document">
+
+
+	
+
+
+
+<nav class="navbar navbar-default navbar-static-top">
+ <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="tabla.html">
+        <img alt="Brand" src="assets/img/hejmo2_inv.png" border="0" width="60" height="60">
+      </a>
+	  
+	  
+    </div>
+	
+	<!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+	  <div class="container">
+		<form class="navbar-form navbar-left" role="search">
+			<div class="form-group">
+				<div class="btn-group" role="group" id="GrupoPeriodo">
+					<button type="button" class="btn btn-default" id="btn_24Horas" onclick="EvntBtn24Horas(this)" >24 H</button>
+					<button type="button" class="btn btn-default" id="btn_7Dias"  onclick="EvntBtn48Horas(this)">48 H</button>
+					<button type="button" class="btn btn-default" id="btn_30Dias" onclick="EvntBtn7Dias(this)">7 dias </button>
+					<button type="button" class="btn btn-default" id="btn_90Dias" onclick="EvntBtn1Mes(this)">30 dias </button>
+					
+				</div>
+
+			</div>
+		</form>
+	
+			 <div class="form-group col-md-6">
+                            <label class="col-md-2 control-label">Fecha</label>
+                            <div class="col-md-10">
+                                        <div class="input-group">
+											<div id="datetimepicker_from" class="input-group">
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span>
+												<input type="text" id="carriotsbundle_streamfiltertype_at_from" name="carriotsbundle_streamfiltertype[at][from]" class="input-sm form-control" />
+											</div>
+											<span class="input-group-addon">hasta</span>
+											<div id="datetimepicker_to" class="input-group">
+												<input type="text" id="carriotsbundle_streamfiltertype_at_to" name="carriotsbundle_streamfiltertype[at][to]" class="input-sm form-control" />
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+											
+										</div>
+										<button type="button" class="btn btn-default" id="btn_exec1" onclick="EvntBtnInformeFecha(this)">
+											<span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span>
+										</button>
+
+                                    
+                            </div>
+            </div>
+                   
+	</div>
+		
+			
+    </ul>  
+      
+    </div><!-- /.navbar-collapse -->
+	<div class = "desplegable">
+			<div class="container">
+			
+			
+		</div>
+	
+	
+  </div>
+  
+   
+</nav>
+
+	<div class="progress">
+						<div class="progress-bar" id="barra_progreso" role="progressbar" >
+						</div>
+			</div>
+	<div class="row">
+
+    <div class="col-md-4">
+        <div class="panel panel-default panel_izd ">
+           
+            <div class="panel-body ">
+				 <div class="panel-heading  ">
+					<div class="btn-group boton_izd pull-right" role="group"  >
+						<button type="button" id="btn_izdup" class="btn btn-default boton_izd  "  onclick="EvntBtnizdup(this)">
+							 <span class="glyphicon glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+						</button>
+					
+						<button type="button" id="btn_izddown" class="btn btn-default boton_izd" onclick="EvntBtnizddown(this)">
+							<span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+						</button>
+					
+					   
+					</div>
+					
+					<div class="clearfix"></div>
+					
+				</div>
+				
+				
+				  
+					
+				 <div id="cuerpo_izd" >
+					<li class="list-group-item panel_izd">
+						<div>
+							<a class="titulo_izd text-left">PERIODO :</a>
+							<div id="CabeceraGrafico" ></a>
+							
+						</div>
+												
+					</li>
+					<li class="list-group-item panel_izd">
+						<div>
+							<a class="titulo_izd text-left">Consumo Total :</a>
+							<a id="ConsumoTotal" class="dato_izd text-right"></a>
+							
+						</div>
+						<div  id="CosteTotal"></div>
+						<div  id="CarbonTotal"></div>
+						
+					</li>
+					<li class="list-group-item panel_izd">
+						<a class="titulo_izd">Consumo Maximo :</a>
+						<a id="ConsumoMaximo" class="dato_izd"> </a>
+						<div  id="CarbonMaximo"></div>
+						<div  id="fecha_consumomaximo"></div>
+					</li>
+					<li class="list-group-item panel_izd">
+						<a class="titulo_izd">Consumo Minimo :</a>
+						<a id="ConsumoMinimo" class="dato_izd"></a>
+						<div  id="CarbonMinimo"></div>
+						<div  id="fecha_consumominimo"></div>
+					</li>
+				</div>
+			</div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default" >
+            <div class="panel-heading" >
+                <h3 class="panel-title" >
+					<div class="btn-group boton_dch pull-right" role="group"  >
+						<button type="button" id="btn_dchup" class="btn btn-default boton_dch  " onclick="EvntBtndchup(this)" >
+							 <span class="glyphicon glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+						</button>
+					
+						<button type="button" id="btn_dchdown" class="btn btn-default boton_dch" onclick="EvntBtndchdown(this)">
+							<span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+						</button>
+					
+					</div>
+					
+					<button type="button " class="btn btn-primary boton_accion" onclick="DescargaDatos(this)">
+						<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+					</button>
+				
+					 
+						
+				
+					<div class="clearfix"></div>
+				</h3>
+            </div>
+			 
+					
+            <div class="panel panel-default" id="cuerpo_dch">
+				<div id="grafico" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+			</div>
+        </div>
+        
+    </div>
+</div>
+
+<div id="divLoading"> </div>
+
+	
+
+</body>
+
+
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="load_window">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+			<div align="center">
+			<img    src=".\graph\cargando-loading-041.gif"  border="0" width="100" height="100" />
+			</div>
+      </div>
+     
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="login-modal"   align="center" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal-dialog">
+		<div class="loginmodal-container">
+			<div align="center">
+				<table>		
+				<tr>
+					<td>
+						<div class="logo" >HEJMO</div><br>
+					</td>
+				</tr>
+				</table>
+			</div>
+		  <form name="login" >
+			<input type="text" id="key" name="key" placeholder="key">
+			<input type="text" id="device" name="device" placeholder="dispositivo">
+					
+		  </form>
+		  <div align="center">
+			  <button type="button" class="btn btn-primary btn-lg loginmodal-submit" onclick="clickRegister(this)">Registrar</button>
+		  </div>
+		  <div id="divLoading"> </div>		
+				  
+		</div>
+	</div>
+ </div>
+
+</html>
+
+	

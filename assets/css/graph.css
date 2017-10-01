@@ -1,0 +1,126 @@
+@import url(http://fonts.googleapis.com/css?family=BenchNine);
+
+
+.panel_izd
+{
+	background:#26759F; /* gris */
+	color:#FFFFFF;
+}
+
+.titulo_izd
+{
+	color:#ffffff;
+	font-size:20px;
+}
+
+.dato_izd
+{
+	color:#E2ECF1;
+	font-size:20px;
+	text-align:right;
+}
+
+.boton_izd
+{
+	color:#BBD9E9;
+	background:#26759F;
+}
+
+
+.boton_dch
+{
+	
+}
+.panel_dch
+{
+	width: 100%;
+
+
+}
+
+.cuerpo_dch
+{
+	background:#ECEBEB; /* gris */
+	color:#FFFFFF;
+}
+
+.titulo_dch
+{
+	color:#ECEBEB;
+	font-size:20px;
+}
+
+.boton_accion
+	{
+		visibility: hidden;
+	}
+.progress
+ {
+	height: 5px;
+	padding-top: 0px;
+}
+
+#divLoading
+{
+    display : none;
+	width:0% ;
+	display: none
+}
+#divLoading.show
+{
+    display : block;
+    position : fixed;
+    z-index: 100;
+    background-image : url('graph/cargando-loading-041.gif');
+    
+	background-color:#666;
+    opacity : 0.4;
+    background-repeat : no-repeat;
+    background-position : center;
+    left : 0;
+    bottom : 0;
+    right : 0;
+    top : 0;
+}
+#loadinggif.show
+{
+    left : 50%;
+    top : 50%;
+    position : absolute;
+	z-index : 101;
+    width : 10px;
+    height : 10px;
+    margin-left : -16px;
+    margin-top : -16px;
+}
+
+
+
+@media screen and (min-width: 767px)
+	{
+	.boton_izd 
+		{
+			visibility: hidden;
+		}
+	.panel_dch
+		{
+			width: 60%;
+		}
+	.boton_dch
+	{
+		visibility: hidden;
+
+	}
+	
+	.boton_accion
+	{
+		visibility: visible;
+	}
+	}
+	
+
+
+
+
+
+
