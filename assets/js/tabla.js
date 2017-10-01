@@ -19,10 +19,9 @@ window.onload = function()
 
 	InicializaVisError();
 
-  //  g_key=localStorage["hjm_key"];
-   // g_device=localStorage["hjm_device"];
-    g_key="ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713";
-    g_device="demo@jesusasinrecalde.jesusasinrecalde";
+    g_key=localStorage["hjm_key"];
+    g_device=localStorage["hjm_device"];
+  
 
 	if(g_key==null || g_device==null)
 	{
