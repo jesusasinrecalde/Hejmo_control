@@ -10,7 +10,7 @@ var IdObjetoGlobal; // variable usada para pasar el IdObjeto atraves de funcione
 
 var g_key;
 var g_device;
-
+var global_conf;
 // Variables de control de visualizacion de errores 
 var NumeroErroresFaldon;
 
@@ -18,31 +18,48 @@ window.onload = function()
 {
 
 	InicializaVisError();
-
-    g_key=localStorage["hjm_key"];
-    g_device=localStorage["hjm_device"];
-  
-
-	if(g_key==null || g_device==null)
+	debugger;
+	if(sessionStorage.getItem('configuracion')==null)
 	{
-			
-			$('#login-modal').modal('show');
+		// se redirige a la pantalla de login directamente 
+		window.open ('login.html','_self',false);
 	}
 	else
 	{
+		global_conf=$.parseJSON(sessionStorage.getItem('configuracion'));
+		if(global_conf.data.apikey!=null && global_conf.data.device !=null)
+		{
+			g_key=global_conf.data.apikey;
+			g_device=global_conf.data.device ;
 			LanzamientoHejmo();
+		}
+		else
+		{
+			
+			localStorage.removeItem("hjm_usr");
+			localStorage.removeItem("hjm_pass");
+			sessionStorage.removeItem("configuracion");
+			window.open ('login.html','_self',false);
+		}
 	}
 
-    
-   
 }// window.onload
 
 function LanzamientoHejmo()
 {
 
+	var bienvenidaMsg;
+	if(global_conf.data.name!=null)
+	{
+		bienvenidaMsg="Bienvenido " +global_conf.data.name+" a <b>Hejmo</b> - sistema de control a distancia de dispositivos."
+	}
+	else
+	{
+		bienvenidaMsg="Bienvenido a <b>Hejmo</b> - sistema de control a distancia de dispositivos.";
+	}
 	$.notify({
 		icon: 'pe-7s-gift',
-		message: "Bienvenido a <b>Hejmo</b> - sistema de control a distancia de dispositivos."
+		message: bienvenidaMsg
 
 	},{
 		type: 'info',
@@ -371,11 +388,11 @@ function About ( obj )
 function EvntLogout ( obj)
 {
 
-	localStorage.removeItem("hjm_key");
-	localStorage.removeItem("hjm_device");
-	//$('#actualizar_dat').hide();
-    $('#login-modal').modal('show');
 	
+	localStorage.removeItem("hjm_usr");
+	localStorage.removeItem("hjm_pass");
+	sessionStorage.removeItem("configuracion");
+    window.open ('login.html','_self',false);
 
 }
 

@@ -54,7 +54,7 @@ var idHejmo=0;
 
 
 var tablaValoresBruto=null;
-
+var global_conf;
 
 window.onload = function() {
 	
@@ -66,17 +66,29 @@ window.onload = function() {
 		idHejmo=parametros.id;
 	}
 	
-	g_key=localStorage["hjm_key"];
-	g_device=localStorage["hjm_device"];
-	if(g_key==null || g_device==null)
+	
+	if(sessionStorage.getItem('configuracion')==null)
 	{
-		
-		$('#login-modal').modal('show');
+		// se redirige a la pantalla de login directamente 
+		window.open ('login.html','_self',false);
 	}
 	else
 	{
-		
-		LanzamientoHejmo();
+		global_conf=$.parseJSON(sessionStorage.getItem('configuracion'));
+		if(global_conf.data.apikey!=null && global_conf.data.device !=null)
+		{
+			g_key=global_conf.data.apikey;
+			g_device=global_conf.data.device ;
+			LanzamientoHejmo();
+		}
+		else
+		{
+			
+			localStorage.removeItem("hjm_usr");
+			localStorage.removeItem("hjm_pass");
+			sessionStorage.removeItem("configuracion");
+			window.open ('login.html','_self',false);
+		}
 	}
 
 }

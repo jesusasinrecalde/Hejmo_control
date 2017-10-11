@@ -26,7 +26,7 @@ http.createServer(function(request, response) {
       return;
     }
 
-    if (fs.statSync(filename).isDirectory()) filename += '/tabla.html';
+    if (fs.statSync(filename).isDirectory()) filename += '/login.html';
 
     fs.readFile(filename, "binary", function(err, file) {
       if(err) {        
