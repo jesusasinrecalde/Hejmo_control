@@ -47,25 +47,27 @@ window.onload = function()
 
 function LanzamientoHejmo()
 {
-
-	var bienvenidaMsg;
-	if(global_conf.data.name!=null)
+	// solo se monstrara el mensaje de bienvenida la primera vez que se entra 
+	if(sessionStorage.getItem('NombreInstalacion')==null)
 	{
-		bienvenidaMsg="Bienvenido " +global_conf.data.name+" a <b>Hejmo</b> - sistema de control a distancia de dispositivos."
-	}
-	else
-	{
-		bienvenidaMsg="Bienvenido a <b>Hejmo</b> - sistema de control a distancia de dispositivos.";
-	}
-	$.notify({
-		icon: 'pe-7s-gift',
-		message: bienvenidaMsg
+		var bienvenidaMsg;
+		if(global_conf.data.name!=null)
+		{
+			bienvenidaMsg="Bienvenido " +global_conf.data.name+" a <b>Hejmo</b> - sistema de control a distancia de dispositivos."
+		}
+		else
+		{
+			bienvenidaMsg="Bienvenido a <b>Hejmo</b> - sistema de control a distancia de dispositivos.";
+		}
+		$.notify({
+				icon: 'pe-7s-gift',
+			message: bienvenidaMsg
 
-	},{
-		type: 'info',
-		timer: 3000
-	});
-
+				},{
+					type: 'info',
+					timer: 3000
+		});
+	}
 	llamarServicioDatosDispositivo(); // obtener datos del dispositivo
 
 	$('#login-modal').modal('hide');
@@ -167,12 +169,14 @@ function recepcionDatosDispositivo(datosREST)
     if(datosREST.properties.nombreDispositivo!=null)
     {
 		document.getElementById("NombreInstalacion").innerHTML=datosREST.properties.nombreDispositivo;
+		sessionStorage.setItem('NombreInstalacion', datosREST.properties.nombreDispositivo);
 	
     }
     else
     {
 		
 		document.getElementById("NombreInstalacion").innerHTML="";
+		sessionStorage.setItem('NombreInstalacion', "");
     }
 }
 
