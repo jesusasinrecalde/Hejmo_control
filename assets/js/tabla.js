@@ -120,7 +120,10 @@ function llamarServicioCarriotsPrimeravez()
 	
 
 	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=30';
-
+	MostrarErrorFaldon("GENERAL_LEC2","device " +g_device);
+	MostrarErrorFaldon("GENERAL_LEC3","api " +g_key);
+	
+	
 	$("#loading").removeClass('hide');
 	$.ajax({
 	beforeSend: function(xhrObj){
