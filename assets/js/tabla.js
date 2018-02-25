@@ -47,6 +47,7 @@ window.onload = function()
 
 function LanzamientoHejmo()
 {
+	debugger;
 	// solo se monstrara el mensaje de bienvenida la primera vez que se entra 
 	if(sessionStorage.getItem('NombreInstalacion')==null)
 	{
@@ -70,46 +71,7 @@ function LanzamientoHejmo()
 	}
 	llamarServicioDatosDispositivo(); // obtener datos del dispositivo
 
-	$('#login-modal').modal('hide');
-	//$('#menu_logout').show();
-	//$('#menu_login').hide();
-	//$('#actualizar_dat').show();
 	
-	
-	g_key=localStorage["hjm_key"];
-	g_device=localStorage["hjm_device"];
-	
-	if(tabla_objetos==null)
-	{
-		tabla_valores = new Array();
-		tabla_objetos = new Array();
-		tabla_datos_tres_horas = new Array();
-		
-	}
-	
-	if(tabla_objetos.length)
-	{
-		if(timer_interval_lectura_datos)
-			clearInterval(timer_interval_lectura_datos);
-		if(timer_interval_modo)
-			clearInterval();
-		
-		for (x=0;x<tabla_objetos.length;x++)
-		{timer_interval_modo
-			console.log("Destruye objeto ["+x+"]\n");
-			tabla_objetos[x].DestruyeObjetoGrafico();
-		}
-		
-		tabla_valores.lenght=0;
-		tabla_objetos.lenght=0;
-		tabla_datos_tres_horas.lenght=0;
-	}
-	
-	actualizar_datos = false;
-	timer_interval_modo=null;
-	timer_interval_lectura_datos=false;
-	
-	llamarServicioCarriotsPrimeravez();	
 
 
 }// LanzamientoHejmo
@@ -120,9 +82,7 @@ function llamarServicioCarriotsPrimeravez()
 	
 
 	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=30';
-	MostrarErrorFaldon("GENERAL_LEC2","device " +g_device);
-	MostrarErrorFaldon("GENERAL_LEC3","api " +g_key);
-	
+		
 	
 	$("#loading").removeClass('hide');
 	$.ajax({
@@ -170,7 +130,8 @@ function llamarServicioDatosDispositivo()
 
 function recepcionDatosDispositivo(datosREST)
 {
-    BorrarErrorFaldon("GENERAL_INF");
+    debugger;
+	BorrarErrorFaldon("GENERAL_INF");
     if(datosREST.properties.nombreDispositivo!=null)
     {
 		document.getElementById("NombreInstalacion").innerHTML=datosREST.properties.nombreDispositivo;
@@ -183,6 +144,53 @@ function recepcionDatosDispositivo(datosREST)
 		document.getElementById("NombreInstalacion").innerHTML="";
 		sessionStorage.setItem('NombreInstalacion', "");
     }
+	
+	$('#login-modal').modal('hide');
+	//$('#menu_logout').show();
+	//$('#menu_login').hide();
+	//$('#actualizar_dat').show();
+	
+	
+	//g_key=localStorage["hjm_key"];
+	//g_device=localStorage["hjm_device"];
+	
+	global_conf=$.parseJSON(sessionStorage.getItem('configuracion'));
+	if(global_conf.data.apikey!=null && global_conf.data.device !=null)
+	{
+		g_key=global_conf.data.apikey;
+		g_device=global_conf.data.device ;
+	}
+	if(tabla_objetos==null)
+	{
+		tabla_valores = new Array();
+		tabla_objetos = new Array();
+		tabla_datos_tres_horas = new Array();
+		
+	}
+	
+	if(tabla_objetos.length)
+	{
+		if(timer_interval_lectura_datos)
+			clearInterval(timer_interval_lectura_datos);
+		if(timer_interval_modo)
+			clearInterval();
+		
+		for (x=0;x<tabla_objetos.length;x++)
+		{timer_interval_modo
+			console.log("Destruye objeto ["+x+"]\n");
+			tabla_objetos[x].DestruyeObjetoGrafico();
+		}
+		
+		tabla_valores.lenght=0;
+		tabla_objetos.lenght=0;
+		tabla_datos_tres_horas.lenght=0;
+	}
+	
+	actualizar_datos = false;
+	timer_interval_modo=null;
+	timer_interval_lectura_datos=false;
+	
+	llamarServicioCarriotsPrimeravez();	
 }
 
 function recepcionServicioRESTPrimeravez (datosREST)

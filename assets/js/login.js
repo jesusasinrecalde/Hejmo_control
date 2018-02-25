@@ -108,7 +108,6 @@ function  recepcionServicioConfiguracion (datosREST)
 {
 	
 	sessionStorage.setItem('configuracion', JSON.stringify(datosREST));
-	alert(datosREST);
 	window.open ('tabla.html','_self',false);
 	debugger; // se almacena en el sesion storage  y se redirecciona. 
 	

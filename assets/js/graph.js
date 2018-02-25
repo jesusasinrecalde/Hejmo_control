@@ -134,9 +134,14 @@ function LanzamientoHejmo()
         });
 
 
-	g_key=localStorage["hjm_key"];
-	g_device=localStorage["hjm_device"];
-	
+	//g_key=localStorage["hjm_key"];
+	//g_device=localStorage["hjm_device"];
+	global_conf=$.parseJSON(sessionStorage.getItem('configuracion'));
+	if(global_conf.data.apikey!=null && global_conf.data.device !=null)
+	{
+		g_key=global_conf.data.apikey;
+		g_device=global_conf.data.device ;
+	}
     
 		
 	$("#btn_izddown").hide();
