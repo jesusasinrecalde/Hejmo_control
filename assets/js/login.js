@@ -47,7 +47,7 @@ function ObtenerClave(usr , pwd)
 		},
     type : "GET",
     url: "http://shrouded-reef-92089.herokuapp.com/api/usr/"+usr,
-	//url: "http://localhost:8080/api/usr/"+usr,
+	url: "http://localhost:8080/api/usr/"+usr,
     success: recepcionServicioToken,
     error : falloServicioToken
 	});
@@ -90,7 +90,7 @@ function ObtenerConfiguracion( _token )
 		},
     type : "GET",
     url: "http://shrouded-reef-92089.herokuapp.com/api/config/"+user,
-	//url: "http://localhost:8080/api/config/"+user,
+	url: "http://localhost:8080/api/config/"+user,
     success: recepcionServicioConfiguracion,
     error : falloServicioConfiguracion
 	});

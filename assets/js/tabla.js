@@ -137,7 +137,8 @@ function llamarServicioCarriotsPrimeravez()
     url: carriotsURL,
     success: recepcionServicioRESTPrimeravez,
     error : function(jqXHR, status) { 
-		MostrarErrorFaldon("GENERAL_LEC1","Fallo en la lectura del los datos de dispositivos");}
+		MostrarErrorFaldon("GENERAL_LEC1","Fallo en la lectura del los datos de dispositivos");
+		$("#loading").addClass('hide');}
 });
 }
 
@@ -161,7 +162,8 @@ function llamarServicioDatosDispositivo()
     success: recepcionDatosDispositivo,
     error : function(jqXHR, status) { 
 	
-	    MostrarErrorFaldon("GENERAL_INF","Fallo en la lectura del los datos de inf. dispositivo");}
+	    MostrarErrorFaldon("GENERAL_INF","Fallo en la lectura del los datos de inf. dispositivo");
+		$("#loading").addClass('hide');}
 });
 }
 
@@ -267,7 +269,8 @@ function llamarServicioCarriots()
 		
 		//alert(jqXHR.getAllResponseHeaders());
 	alert("ERROR :"+jqXHR.responseText+" "+jqXHR.statusText)
-		MostrarErrorFaldon("GENERAL_INF1","Fallo en la lectura periodica de los datos de inf. dispositivo");}
+		MostrarErrorFaldon("GENERAL_INF1","Fallo en la lectura periodica de los datos de inf. dispositivo");
+		$("#loading").addClass('hide');}
 	});
 }
 
