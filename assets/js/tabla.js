@@ -210,8 +210,13 @@ function recepcionServicioRESTPrimeravez (datosREST)
 	var elem1=document.getElementById("fecha_actualizacion");
     elem1.innerHTML=stringFecha;
 	
+	
+	var numero=0;
+	var numeroAct=(nodo.at*1000)+900000;
 	var fechaAct=new Date();
-	if(fechaAct.getTime()>(nodo.at*1000)+1000)
+	numero=fechaAct.getTime();
+	debugger;
+	if(numero>numeroAct)
 	{
 		MostrarErrorFaldon("GENERAL_DATE","Datos demasiado antiguos puede que haya un fallo en el dispositivo");
 	}
@@ -291,7 +296,7 @@ function recepcionServicioREST (datosREST)
    	var nodo=datosREST.result[0];
 	
 	BorrarErrorFaldon("GENERAL_INF1");
-
+	BorrarErrorFaldon("GENERAL_DATE");
 
     // actualizamos el encabezado indicando la fecha de actualizacion
 	var stringFecha = '         Ultimo Dato: '+DarStringFecha(nodo.at);
@@ -718,4 +723,41 @@ function BorrarErrorFaldon(Identificativo)
 			$("#errorfaldon").hide();
 		}
 	}
+}
+function llamarCarriotsMetodoPOST(datos)
+{
+	debugger;
+	var cadenaSalida="{"+"\"protocol\":\"v2\","+"\"checksum\":\"\","+"\"device\":\"In"+g_device+"\","+"\"at\":\"now\","+"\"data\":{"+datos+"}}"
+	
+
+	var carriotsURL = 'http://api.carriots.com/streams';
+
+	//$("#loading").removeClass('hide');
+	$.ajax({
+	/*headers : {
+		"carriots.apikey": g_key,
+		"Content-Type":"application/json",
+        "Accept":"application/json"
+	},*/
+	beforeSend: function(xhrObj){
+        xhrObj.setRequestHeader("Content-Type","application/json");
+        xhrObj.setRequestHeader("Accept","application/json");
+        xhrObj.setRequestHeader("carriots.apikey",g_key);
+        
+
+		},
+	
+    type : "post",
+	
+    url: carriotsURL,
+	data:cadenaSalida,
+	success: function( data, textStatus, jQxhr ){
+                  
+                },
+    error: function( jqXhr, textStatus, errorThrown ){
+                  
+                }
+	
+		
+});
 }
