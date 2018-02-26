@@ -215,7 +215,6 @@ function recepcionServicioRESTPrimeravez (datosREST)
 	var numeroAct=(nodo.at*1000)+900000;
 	var fechaAct=new Date();
 	numero=fechaAct.getTime();
-	debugger;
 	if(numero>numeroAct)
 	{
 		MostrarErrorFaldon("GENERAL_DATE","Datos demasiado antiguos puede que haya un fallo en el dispositivo");
@@ -296,15 +295,18 @@ function recepcionServicioREST (datosREST)
    	var nodo=datosREST.result[0];
 	
 	BorrarErrorFaldon("GENERAL_INF1");
-	BorrarErrorFaldon("GENERAL_DATE");
+	
 
     // actualizamos el encabezado indicando la fecha de actualizacion
 	var stringFecha = '         Ultimo Dato: '+DarStringFecha(nodo.at);
 	var elem1=document.getElementById("fecha_actualizacion");
     elem1.innerHTML=stringFecha;
 	
+	var numero=0;
+	var numeroAct=(nodo.at*1000)+900000;
 	var fechaAct=new Date();
-	if(fechaAct.getTime()>(nodo.at*1000)+1000)
+	numero=fechaAct.getTime();
+	if(numero>numeroAct)
 	{
 		MostrarErrorFaldon("GENERAL_DATE","Datos demasiado antiguos puede que haya un fallo en el dispositivo");
 	}
