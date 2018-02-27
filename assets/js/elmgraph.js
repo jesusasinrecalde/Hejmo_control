@@ -94,11 +94,14 @@ function EvnBtnModo(obj)
 	var estado=$(obj).attr('estado');
 	if(estado)
 	{
-		if(estado=="0" || estado == '1')
-		{
-			SetModo(obj,estado);
+		if(estado=="0")
+			estado=1;
+		else // estado 1 
+			estado = 0;
+		
+		SetModo(obj,estado);
 			
-		}
+		
 		
 		//obj.setAttribute("estado",estado);
 	}
@@ -113,20 +116,21 @@ function SetModo(obj, estado)
 	var elemento ="#"+objeto+"1";
 	
 	//var elem1=document.getElementById(objeto+"1");
-	if(estado==0)
+	if(estado==0)// modo frio
 	{
+		//estado="1";
 		$(elemento).removeClass("fa-sun-o");
 		$(elemento).addClass("fa-snowflake-o");
-		estado="1";
 		color="#029FFF";
+	
 	}
 	else // estado = 1
 	{
-		estado="0";
+		//estado="0";	
 		$(elemento).removeClass("fa-snowflake-o");
 		$(elemento).addClass("fa-sun-o");
 		color="#FF0000";
-		
+	
 	}
 	$(obj).attr("estado",estado);
 	$(obj).css("color",color);
