@@ -959,7 +959,7 @@ function pintaGrafico( data )
 			
             series: [{
                 type: 'area',
-                name: 'Temperatura',
+                name: 'Consumo',
                 data: data
             }]
         });

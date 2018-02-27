@@ -187,7 +187,7 @@ Altherma.prototype.Actualizar=function()
 	//this.EvaluaElmBullet(document.getElementById('dat11'+this.Id),this.parametros.dat11);
 	
 	elem1=document.getElementById('dat12'+this.Id);
-    elem1.innerHTML=this.parametros.dat3 + " ºC";
+    elem1.innerHTML=this.parametros.dat3 + " &deg;C";
 	
 	//this.EvaluaElmBullet(document.getElementById('dat12'+this.Id),this.parametros.dat12);
 	/*elem1=document.getElementById('dat12'+this.Id);
@@ -197,7 +197,7 @@ Altherma.prototype.Actualizar=function()
 		elem1.src="./graph/icons/hotstart.png";
 	*/
 	elem1=document.getElementById('dat13'+this.Id);
-	elem1.innerHTML=this.parametros.dat7 + " ºC";
+	elem1.innerHTML=this.parametros.dat7 + " &deg;C";
 	
 	
 	this.EvaluaElmBullet(document.getElementById('dat14'+this.Id),this.parametros.dat8);

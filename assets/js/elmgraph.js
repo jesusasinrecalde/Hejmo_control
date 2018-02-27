@@ -89,21 +89,17 @@ function SetBotonColor(obj,estado)
 
 function EvnBtnModo(obj)
 {
-
+	debugger;
 	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
 	var estado=$(obj).attr('estado');
 	if(estado)
 	{
-		if(estado=="0")
+		if(estado=="0" || estado == '1')
 		{
-			SetModo(obj,"1");
+			SetModo(obj,estado);
 			
 		}
-		else
-		{
-			SetModo(obj,"0");
-			
-		}
+		
 		//obj.setAttribute("estado",estado);
 	}
 }
@@ -117,19 +113,18 @@ function SetModo(obj, estado)
 	var elemento ="#"+objeto+"1";
 	
 	//var elem1=document.getElementById(objeto+"1");
-	if(estado==1)
+	if(estado==0)
 	{
 		$(elemento).removeClass("fa-sun-o");
 		$(elemento).addClass("fa-snowflake-o");
 		estado="1";
 		color="#029FFF";
 	}
-	else
+	else // estado = 1
 	{
 		estado="0";
 		$(elemento).removeClass("fa-snowflake-o");
 		$(elemento).addClass("fa-sun-o");
-		
 		color="#FF0000";
 		
 	}
