@@ -212,7 +212,7 @@ function TratamientoERROR(datos)
 		switch(codigo)
 		{
 			case 1 :
-				texto="Apagado dispositivo";
+				texto="Apagado dispositivo concentrador de datos ";
 				break;
 			default :
 				texto = "Codigo no esperado ["+datos.data['error']+"]";
