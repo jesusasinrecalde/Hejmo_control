@@ -18,7 +18,7 @@ window.onload = function()
 {
 
 	InicializaVisError();
-	debugger;
+	
 	if(sessionStorage.getItem('configuracion')==null)
 	{
 		// se redirige a la pantalla de login directamente 
@@ -193,6 +193,37 @@ function recepcionDatosDispositivo(datosREST)
 	llamarServicioCarriotsPrimeravez();	
 }
 
+function TratamientoGPS(datos)
+{
+	var cadena = datos.data['gps'];
+	if(cadena!=null)
+	{
+		sessionStorage.setItem('gps',datos.data['gps']);
+	}
+}
+
+function TratamientoERROR(datos)
+{
+	var cadena = datos.data['error'];
+	if(cadena!=null)
+	{
+		var texto ="";
+		var codigo=parseInt(datos.data['error']);
+		switch(codigo)
+		{
+			case 1 :
+				texto="Apagado dispositivo";
+				break;
+			default :
+				texto = "Codigo no esperado ["+datos.data['error']+"]";
+		}
+		MostrarErrorFaldon("ERROR_GENERAL",texto);
+	}
+	else
+	{
+		BorrarErrorFaldon("ERROR_GENERAL");
+	}
+}
 function recepcionServicioRESTPrimeravez (datosREST)
 {
 	BorrarErrorFaldon("GENERAL_LEC1");
@@ -202,8 +233,13 @@ function recepcionServicioRESTPrimeravez (datosREST)
    
 	var nodo=datosREST.result[0];
 	var nodoTabla;
-	
+
+	TratamientoERROR(nodo);
+	TratamientoGPS(nodo);
 	var iNumElementos=parseInt(nodo.data['numElem']);
+	
+
+	
 
     // actualizamos el encabezado indicando la fecha de actualizacion
 	var stringFecha = '         Ultimo Dato: '+DarStringFecha(nodo.at);
@@ -296,6 +332,8 @@ function recepcionServicioREST (datosREST)
 	
 	BorrarErrorFaldon("GENERAL_INF1");
 	
+	TratamientoERROR(nodo);
+	TratamientoGPS(nodo);
 
     // actualizamos el encabezado indicando la fecha de actualizacion
 	var stringFecha = '         Ultimo Dato: '+DarStringFecha(nodo.at);

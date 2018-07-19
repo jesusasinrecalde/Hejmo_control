@@ -42,9 +42,21 @@ function LanzamientoMapa()
 
 
 function initGoogleMaps(){
-       // var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
+	   // var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
+	   var latitud =parseFloat( "0");
+	   var longitid=parseFloat("0");
+	   debugger;
+	  // if(sessionStorage.getItem('gps')==null)
+		{
+			var cadena = sessionStorage.getItem('gps').split(";");
+			
+			latitud=parseFloat(cadena[0]);
+			longitid=parseFloat(cadena[1]);
+  
+		}
 	   
-		 var myLatlng = new google.maps.LatLng( 41.606710, -0.930054/*41.666648,-0.820828*/);
+		// var myLatlng = new google.maps.LatLng( 41.606710, -0.930054/*41.666648,-0.820828*/);
+		var myLatlng = new google.maps.LatLng( latitud,longitid);
 	   var mapOptions = {
           zoom: 19,
           center: myLatlng,
