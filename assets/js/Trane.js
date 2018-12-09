@@ -17,74 +17,90 @@ function Trane(idTerm)
 						   , dat26:0,dat27:0,dat28:0,dat29:0}; // datos que se recibe del servicio pass
 	
 	this.grabacion={StdClima:0, ModoClima:0,TempClima:0,StdACS:0,TempACS:0};
-		
-	var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#Trane');
-	debugger;
 	
-	
-	// Elementos graficos propios del objeto
-	clone.getElementById("traneModoCalor").id ="traneModoCalor"+this.Id;
-	clone.getElementById("traneModoFrio").id ="traneModoFrio"+this.Id;
-	clone.getElementById("traneCapacidadReal").id ="traneCapacidadReal"+this.Id;
-	clone.getElementById("traneCapacidadReal_porc").id ="traneCapacidadReal_porc"+this.Id;
-	clone.getElementById("tranefanA").id ="tranefanA"+this.Id;
-	clone.getElementById("tranefanB").id ="tranefanB"+this.Id;
-	clone.getElementById("tranefanC").id ="tranefanC"+this.Id;
-	clone.getElementById("tranefanD").id ="tranefanD"+this.Id;
-	clone.getElementById("tranefanE").id ="tranefanE"+this.Id;
-	clone.getElementById("tranefanF").id ="tranefanF"+this.Id;
-	clone.getElementById("tranecompA").id ="tranecompA"+this.Id;
-	clone.getElementById("tranecompB").id ="tranecompB"+this.Id;
-	clone.getElementById("tranecompC").id ="tranecompC"+this.Id;
-	clone.getElementById("tranecompD").id ="tranecompD"+this.Id;
-	clone.getElementById("tranecompE").id ="tranecompE"+this.Id;
-	clone.getElementById("tranecompF").id ="tranecompF"+this.Id;
-	
-	clone.getElementById("traneTempout").id ="traneTempout"+this.Id;
-	clone.getElementById("traneTempin").id ="traneTempin"+this.Id;
-	
-	clone.getElementById("traneTempC2").id ="traneTempC2"+this.Id;
-	clone.getElementById("tranePressC2").id ="tranePressC2"+this.Id;
-	
-	clone.getElementById("traneTempC1").id ="traneTempC1"+this.Id;
-	clone.getElementById("tranePressC1").id ="tranePressC1"+this.Id;
-	
-	
-	clone.getElementById("traneTempCon1").id ="traneTempCon1"+this.Id;
-	clone.getElementById("tranePressCon1").id ="tranePressCon1"+this.Id;
-	
-	clone.getElementById("traneTempCon2").id ="traneTempCon2"+this.Id;
-	clone.getElementById("tranePressCon2").id ="tranePressCon2"+this.Id;
-	
-	clone.getElementById("configuracion").id ="configuracion"+this.Id;
-	
-	
-	//clone.getElementById("icono_warning").id ="icono_warning"+this.Id;
-	
-	//clone.getElementById("configuracion").id ="configuracion"+this.Id;
-	
-	//$('.traneaccordion').collapse();
-	
-	$("#contenedor").append(clone); // se añade el objeto al documento DOM dentro del elemento contenedor ...
-	
-	
-	ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
-	
-	
-	document.getElementById("configuracion"+this.Id).setAttribute("ObjID",this.Id);
-
-	
-	this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
+	this.cargaInterfazGrafico();
 	
 };
 
 Trane.prototype = Object.create(ObjectoGenerico.prototype); 
 
+Trane.prototype.cargaInterfazGrafico= function()
+{
+// Cargamos la plantilla asociada 
+$("#plantillas").load("assets/template/trane_template.html",(response, status, xhr)=> {
+	if (status == "success")
+	{
+		var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#Trane');
+		debugger;
+		
+		
+		// Elementos graficos propios del objeto
+		clone.getElementById("traneModoCalor").id ="traneModoCalor"+this.Id;
+		clone.getElementById("traneModoFrio").id ="traneModoFrio"+this.Id;
+		clone.getElementById("traneCapacidadReal").id ="traneCapacidadReal"+this.Id;
+		clone.getElementById("traneCapacidadReal_porc").id ="traneCapacidadReal_porc"+this.Id;
+		clone.getElementById("tranefanA").id ="tranefanA"+this.Id;
+		clone.getElementById("tranefanB").id ="tranefanB"+this.Id;
+		clone.getElementById("tranefanC").id ="tranefanC"+this.Id;
+		clone.getElementById("tranefanD").id ="tranefanD"+this.Id;
+		clone.getElementById("tranefanE").id ="tranefanE"+this.Id;
+		clone.getElementById("tranefanF").id ="tranefanF"+this.Id;
+		clone.getElementById("tranecompA").id ="tranecompA"+this.Id;
+		clone.getElementById("tranecompB").id ="tranecompB"+this.Id;
+		clone.getElementById("tranecompC").id ="tranecompC"+this.Id;
+		clone.getElementById("tranecompD").id ="tranecompD"+this.Id;
+		clone.getElementById("tranecompE").id ="tranecompE"+this.Id;
+		clone.getElementById("tranecompF").id ="tranecompF"+this.Id;
+		
+		clone.getElementById("traneTempout").id ="traneTempout"+this.Id;
+		clone.getElementById("traneTempin").id ="traneTempin"+this.Id;
+		
+		clone.getElementById("traneTempC2").id ="traneTempC2"+this.Id;
+		clone.getElementById("tranePressC2").id ="tranePressC2"+this.Id;
+		
+		clone.getElementById("traneTempC1").id ="traneTempC1"+this.Id;
+		clone.getElementById("tranePressC1").id ="tranePressC1"+this.Id;
+		
+		
+		clone.getElementById("traneTempCon1").id ="traneTempCon1"+this.Id;
+		clone.getElementById("tranePressCon1").id ="tranePressCon1"+this.Id;
+		
+		clone.getElementById("traneTempCon2").id ="traneTempCon2"+this.Id;
+		clone.getElementById("tranePressCon2").id ="tranePressCon2"+this.Id;
+		
+		clone.getElementById("configuracion").id ="configuracion"+this.Id;
+		
+		
+		//clone.getElementById("icono_warning").id ="icono_warning"+this.Id;
+		
+		//clone.getElementById("configuracion").id ="configuracion"+this.Id;
+		
+		//$('.traneaccordion').collapse();
+		
+		$("#contenedor").append(clone); // se aï¿½ade el objeto al documento DOM dentro del elemento contenedor ...
+		
+		
+		ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
+		
+		
+		document.getElementById("configuracion"+this.Id).setAttribute("ObjID",this.Id);
 
+		this.impresoGraficos=true;
+		this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
+	}
+});
+
+}
 
 
 Trane.prototype.Actualizar=function()
 {
+	// si no se han creado los elementos graficos no tiene sentido procesar 
+	// los datos 
+	if(!this.impresoGraficos)
+		return;	
+	
+
 	this.VisualizaElmVentilador(1, 1, 1, 1, 1, 1);
 	this.VisualizaElmCompresor( 1, 1, 1, 1, 1, 1);
 	this.SetColorVentilador('A',"VERDE");

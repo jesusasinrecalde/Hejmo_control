@@ -1,6 +1,6 @@
 var TextoMeteo ;
 
-function Altherma(idTerm)
+function Altherma(idTerm,nombre,modo)
 {
 	"use strict";
 	
@@ -8,9 +8,10 @@ function Altherma(idTerm)
 	debugger;
 
 
-	ObjectoGenerico.call(this,idTerm,2,"Altherma CB LT","Altherma"+idTerm,false,"#35A127","#D6FFD1","#8B70EE"/*"#370EC8"*/,"#669");
+	ObjectoGenerico.call(this,idTerm,2,nombre,"Altherma"+idTerm,false,"#35A127","#D6FFD1","#8B70EE"/*"#370EC8"*/,"#669");
 	
 	this.Id=idTerm;
+	this.modo=modo;
 	
 	/*
 	[1] I0021 Unit ERROR 0..1 (0:No Error, 1:Error)
@@ -59,82 +60,99 @@ function Altherma(idTerm)
 		grb1: on off , encendido clima , se relaciona con el parametro dat5 
 	*/
 	this.grabacion={StdClima:0, ModoClima:0,TempClima:0,StdACS:0,TempACS:0};
-		
-	var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#Altherma');
-	debugger;
 	
-	
-	// Elementos graficos propios del objeto
-	clone.getElementById("TempExterior").id ="TempExterior"+this.Id;
-	clone.getElementById("marco_principal").id  ="marco_principal"+this.Id;
-	
-	clone.getElementById("accordion").id ="accordion"+this.Id;
-	
-	//Elementos que van los datos de consumo
-	
-	
-	clone.getElementById("dat4").id ="dat4"+this.Id;
-	clone.getElementById("dat8").id ="dat8"+this.Id;
-	clone.getElementById("dat6").id ="dat6"+this.Id;
-	clone.getElementById("dat7").id ="dat7"+this.Id;
-	clone.getElementById("dat10").id ="dat10"+this.Id;
-	clone.getElementById("dat12").id ="dat12"+this.Id;
-	clone.getElementById("dat13").id ="dat13"+this.Id;
-	clone.getElementById("dat14").id ="dat14"+this.Id;
 
-	clone.getElementById("dat15").id ="dat15"+this.Id;
-	clone.getElementById("dat16").id ="dat16"+this.Id;
-	clone.getElementById("dat17").id ="dat17"+this.Id;
-	clone.getElementById("dat19").id ="dat19"+this.Id;
-	clone.getElementById("dat20").id ="dat20"+this.Id;
-	clone.getElementById("dat23").id ="dat23"+this.Id;
-	clone.getElementById("dat25").id ="dat25"+this.Id;
+	this.cargaInterfazGrafico(modo);
 	
-	clone.getElementById("dat28").id ="dat28"+this.Id;
-	
-	//clone.getElementById("icono_warning").id ="icono_warning"+this.Id;
-	
-	clone.getElementById("configuracion").id ="configuracion"+this.Id;
-	
-	
-	
-	$("#contenedor").append(clone); // se a�ade el objeto al documento DOM dentro del elemento contenedor ...
-	
-	
-	ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
-	
-	document.getElementById("configuracion"+this.Id).setAttribute("ObjID",this.Id);
-	
-	//llamarServicioCarriotsNummObjt(this.Id,6);
-	$('.accordion'+this.Id).collapse();
-	this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
 
+	
 };
 
 Altherma.prototype = Object.create(ObjectoGenerico.prototype); 
+
+Altherma.prototype.cargaInterfazGrafico= function(modo)
+{
+	var  valor =0;
+// Cargamos la plantilla asociada 
+$("#plantillas").load("assets/template/Altherma_template.html" ,(response, status, xhr) => {
+	debugger;
+	if (status == "success")
+	{
+		debugger;
+		console.log("se esta creando objeto Altherma");
+		
+		var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#Altherma');
+			
+		// Elementos graficos propios del objeto
+		clone.getElementById("TempExterior").id ="TempExterior"+this.Id;
+		clone.getElementById("marco_principal").id  ="marco_principal"+this.Id;
+
+		clone.getElementById("accordion").id ="accordion"+this.Id;
+
+		//Elementos que van los datos de consumo
+
+
+		clone.getElementById("dat4").id ="dat4"+this.Id;
+		clone.getElementById("dat8").id ="dat8"+this.Id;
+		clone.getElementById("dat6").id ="dat6"+this.Id;
+		clone.getElementById("dat7").id ="dat7"+this.Id;
+		clone.getElementById("dat10").id ="dat10"+this.Id;
+		clone.getElementById("dat12").id ="dat12"+this.Id;
+		clone.getElementById("dat13").id ="dat13"+this.Id;
+		clone.getElementById("dat14").id ="dat14"+this.Id;
+
+		clone.getElementById("dat15").id ="dat15"+this.Id;
+		clone.getElementById("dat16").id ="dat16"+this.Id;
+		clone.getElementById("dat17").id ="dat17"+this.Id;
+		clone.getElementById("dat19").id ="dat19"+this.Id;
+		clone.getElementById("dat20").id ="dat20"+this.Id;
+		clone.getElementById("dat23").id ="dat23"+this.Id;
+		clone.getElementById("dat25").id ="dat25"+this.Id;
+		
+		clone.getElementById("dat28").id ="dat28"+this.Id;
+		
+		//clone.getElementById("icono_warning").id ="icono_warning"+this.Id;
+		
+		
+		clone.getElementById("configuracion").id ="configuracion"+this.Id;
+		debugger;
+		
+		
+		
+		$("#contenedor").append(clone); // se a�ade el objeto al documento DOM dentro del elemento contenedor ...
+		
+		
+		ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
+		
+		if(modo=="read")
+			$('#configuracion'+this.Id).hide();
+		else
+			document.getElementById("configuracion"+this.Id).setAttribute("ObjID",this.Id);
+		
+
+
+		$('.accordion'+this.Id).collapse();
+		this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
+		valor =1;
+		console.log("fin carga ");
+		this.impresoGraficos=true;
+		this.Actualizar(); // se lanza la carga de la informacion despues de crearse los elm graficos
+	}
+
+  });
+ 
+  }
 
 /** centraliza en una una funcion todas los cambios que se produce en el objeto 
 */
 
 Altherma.prototype.Actualizar=function()
 {
-	//var elem1=document.getElementById('dat1'+this.Id);
-    //elem1.innerHTML=this.parametros.dat1+" V";
 	
-	//elem1=document.getElementById('dat2'+this.Id);
-    //elem1.innerHTML=this.parametros.dat2+" A";
-	
-	////elem1=document.getElementById('dat3'+this.Id);
-    ////elem1.innerHTML=this.parametros.dat3;
-	
-	////elem1=document.getElementById('dat4'+this.Id);
-    ////elem1.innerHTML=this.parametros.dat4+ " W";
-	
-	//elem1=document.getElementById('dat5'+this.Id);
-    //elem1.innerHTML=this.parametros.dat5 + " W";
-	
-	debugger;
-	
+	// si no se han creado los elementos graficos no tiene sentido procesar 
+	// los datos 
+	if(!this.impresoGraficos)
+		return;	
 	
 	//var Consumo=this.parametros.dat9 / 0.399;
 	elem1=document.getElementById('icono_warning'+this.Id);
@@ -147,10 +165,10 @@ Altherma.prototype.Actualizar=function()
 	{
 		$('#icono_warning'+this.Id).show();
 	}
-	
-	
+		
 	elem1=document.getElementById('TempExterior'+this.Id);
-    elem1.innerHTML=this.parametros.dat12+" &deg;C";
+	if(elem1!=null)
+    	elem1.innerHTML=this.parametros.dat12+" &deg;C";
 	
 	//elem1=document.getElementById('dat9'+this.Id);
     //elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
@@ -270,7 +288,6 @@ Altherma.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras,flgpPrim
 {
 	console.log("Actualizar datos Obj tipo 2 Id"+this.Id+"\n");
 	
-		
 	var indice =0;
 	
 	dato=Parametros.data[this.Id+'_dat1'];
@@ -493,6 +510,8 @@ Altherma.prototype.ProcesaDatosPeticion=function(ListaResultado)
 Altherma.prototype.MostrarVentanaModal=function()
 {
 	debugger;
+	// Cargamos la plantilla asociada 
+	$("#plantillas").load("assets/template/Altherma_template.html" ,(response, status, xhr) => {
 	var elem2=document.getElementById('valor3');
      elem2.innerHTML=this.grabacion.TempClima;
 	 
@@ -507,6 +526,7 @@ Altherma.prototype.MostrarVentanaModal=function()
 	    
 	$("#AlthermaConf").attr('elm',this.Id);
 	$('#AlthermaConf').modal('show');
+	});
 }
 
 

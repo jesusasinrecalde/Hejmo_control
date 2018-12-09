@@ -11,6 +11,8 @@ var IdObjetoGlobal; // variable usada para pasar el IdObjeto atraves de funcione
 var g_key;
 var g_device;
 var global_conf;
+var contadorElementos;
+var global_elementos;
 // Variables de control de visualizacion de errores 
 var NumeroErroresFaldon;
 
@@ -26,11 +28,16 @@ window.onload = function()
 	}
 	else
 	{
+		debugger;
 		global_conf=$.parseJSON(sessionStorage.getItem('configuracion'));
-		if(global_conf.data.apikey!=null && global_conf.data.device !=null)
+		global_elementos=$.parseJSON(sessionStorage.getItem('instalacion'));
+		if(global_conf.apikey!=null && global_conf.device !=null && global_elementos != null)
 		{
-			g_key=global_conf.data.apikey;
-			g_device=global_conf.data.device ;
+			//g_key=global_conf.apikey;
+			//g_device=global_conf.device ;
+			g_key=global_elementos.apikey;
+			g_device=global_elementos.device ;
+					
 			LanzamientoHejmo();
 		}
 		else
@@ -38,7 +45,9 @@ window.onload = function()
 			
 			localStorage.removeItem("hjm_usr");
 			localStorage.removeItem("hjm_pass");
+			localStorage.removeItem("hjm_instalacion");
 			sessionStorage.removeItem("configuracion");
+			sessionStorage.removeItem("instalacion");
 			window.open ('login.html','_self',false);
 		}
 	}
@@ -47,14 +56,21 @@ window.onload = function()
 
 function LanzamientoHejmo()
 {
-	debugger;
+
+	if(tabla_objetos==null)
+	{
+		tabla_valores = new Array();
+		tabla_objetos = new Array();
+		tabla_datos_tres_horas = new Array();
+		
+	}
 	// solo se monstrara el mensaje de bienvenida la primera vez que se entra 
 	if(sessionStorage.getItem('NombreInstalacion')==null)
 	{
 		var bienvenidaMsg;
-		if(global_conf.data.name!=null)
+		if(global_conf.name!=null)
 		{
-			bienvenidaMsg="Bienvenido " +global_conf.data.name+" a <b>Hejmo</b> - sistema de control a distancia de dispositivos."
+			bienvenidaMsg="Bienvenido " +global_conf.name+" a <b>Hejmo</b> - sistema de control a distancia de dispositivos."
 		}
 		else
 		{
@@ -69,6 +85,14 @@ function LanzamientoHejmo()
 					timer: 3000
 		});
 	}
+
+	if(tabla_objetos.length==0) // si no se ha creadoobjetos entonces creamos y los metemos en la tabla 
+	{
+		debugger;
+		CreacionElementos_new(global_elementos.ELEM);
+			
+	}
+	
 	llamarServicioDatosDispositivo(); // obtener datos del dispositivo
 
 	
@@ -84,7 +108,7 @@ function llamarServicioCarriotsPrimeravez()
 	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=30';
 		
 	
-	$("#loading").removeClass('hide');
+	$("#loading").removeClass('hide'); 
 	$.ajax({
 	beforeSend: function(xhrObj){
         xhrObj.setRequestHeader("Content-Type","application/json");
@@ -98,7 +122,8 @@ function llamarServicioCarriotsPrimeravez()
     success: recepcionServicioRESTPrimeravez,
     error : function(jqXHR, status) { 
 		MostrarErrorFaldon("GENERAL_LEC1","Fallo en la lectura del los datos de dispositivos");
-		$("#loading").addClass('hide');}
+		$("#loading").addClass('hide');
+	}
 });
 }
 
@@ -123,28 +148,26 @@ function llamarServicioDatosDispositivo()
     error : function(jqXHR, status) { 
 	
 	    MostrarErrorFaldon("GENERAL_INF","Fallo en la lectura del los datos de inf. dispositivo");
-		$("#loading").addClass('hide');}
+		$("#loading").addClass('hide'); 
+	}
 });
 }
 
 
 function recepcionDatosDispositivo(datosREST)
 {
-    debugger;
-	BorrarErrorFaldon("GENERAL_INF");
-    if(datosREST.properties.nombreDispositivo!=null)
-    {
-		document.getElementById("NombreInstalacion").innerHTML=datosREST.properties.nombreDispositivo;
-		sessionStorage.setItem('NombreInstalacion', datosREST.properties.nombreDispositivo);
-	
-    }
-    else
-    {
-		
+	  BorrarErrorFaldon("GENERAL_INF");
+	  if(global_elementos.INSTALLNAME!=null)
+	  {
+		document.getElementById("NombreInstalacion").innerHTML=global_elementos.INSTALLNAME;
+		sessionStorage.setItem('NombreInstalacion', global_elementos.INSTALLNAME);
+	  }
+	  else
+	  {
 		document.getElementById("NombreInstalacion").innerHTML="";
 		sessionStorage.setItem('NombreInstalacion', "");
-    }
-	
+	  }
+
 	$('#login-modal').modal('hide');
 	//$('#menu_logout').show();
 	//$('#menu_login').hide();
@@ -155,18 +178,12 @@ function recepcionDatosDispositivo(datosREST)
 	//g_device=localStorage["hjm_device"];
 	
 	global_conf=$.parseJSON(sessionStorage.getItem('configuracion'));
-	if(global_conf.data.apikey!=null && global_conf.data.device !=null)
+	if(global_conf.apikey!=null && global_conf.device !=null)
 	{
-		g_key=global_conf.data.apikey;
-		g_device=global_conf.data.device ;
+		g_key=global_conf.apikey;
+		g_device=global_conf.device ;
 	}
-	if(tabla_objetos==null)
-	{
-		tabla_valores = new Array();
-		tabla_objetos = new Array();
-		tabla_datos_tres_horas = new Array();
-		
-	}
+	
 	
 	if(tabla_objetos.length)
 	{
@@ -264,21 +281,20 @@ function recepcionServicioRESTPrimeravez (datosREST)
 	//tabla_datos_tres_horas=datosREST.result.slice();
 
 	
-	if(iNumElementos>0)// Si no esta creado el campo numero de elementos no se continua con la creacion de objetos
-	{
-		if(tabla_objetos.length==0) // si no se ha creadoobjetos entonces creamos y los metemos en la tabla 
-		{
-			CreacionElementos(iNumElementos, nodo);
-		
-		}
-		
-	}
+//	if(iNumElementos>0)// Si no esta creado el campo numero de elementos no se continua con la creacion de objetos
+//	{
+//		if(tabla_objetos.length==0) // si no se ha creadoobjetos entonces creamos y los metemos en la tabla 
+//		{
+//			CreacionElementos(iNumElementos, nodo);
+//		
+//		}
+//		
+//	}
 	ActualizarParametrosRecibidor(nodo,datosREST.result,'true'); // actualizamos los datos con los parametros recibidos
 	
 	// se activa el timer de refres de informacion 
 	timer_interval_lectura_datos=setInterval(llamarServicioCarriots,100000);// 10 minutos
-	$("#loading").addClass('hide');
-		
+	$("#loading").addClass('hide'); 	
 }
 
 // funcion que notifica a cada uno de los elementos existentes los datos recibidos para que se actualicen 
@@ -301,7 +317,7 @@ function llamarServicioCarriots()
 //	**** var carriotsURL = 'http://api.carriots.com/devices/defaultDevice@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 //	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=30';
-	$("#loading").removeClass('hide');
+	$("#loading").removeClass('hide'); 
 	
 	
 	$.ajax({
@@ -318,7 +334,8 @@ function llamarServicioCarriots()
 		//alert(jqXHR.getAllResponseHeaders());
 	alert("ERROR :"+jqXHR.responseText+" "+jqXHR.statusText)
 		MostrarErrorFaldon("GENERAL_INF1","Fallo en la lectura periodica de los datos de inf. dispositivo");
-		$("#loading").addClass('hide');}
+		$("#loading").addClass('hide'); 
+	}
 	});
 }
 
@@ -356,14 +373,15 @@ function recepcionServicioREST (datosREST)
 	ActualizarParametrosRecibidor(nodo,datosREST.result,'false'); // actualizamos los datos con los parametros recibidos
 	
 	
-	$("#loading").addClass('hide');
+	$("#loading").addClass('hide'); 
 	
 }
 function CreacionElementos(iNumElementos, nodo )
 {
 	var valor;
 	var Tem1;
-	debugger;
+	contadorElementos=0;
+	
 	for(var indice=0;indice<iNumElementos;indice++)
 	{
 		valor = nodo.data['ID_'+indice];
@@ -372,32 +390,34 @@ function CreacionElementos(iNumElementos, nodo )
 			var TipoElemento=nodo.data['ID_'+indice];
 			switch(TipoElemento)
 			{
-				case "0" : // termostato sistema
+			/*	case "0" : // termostato sistema
 				    console.log("Crea elm Termostato sistema ["+indice+"]\n");
 					Tem1= new TermostatoSistena(indice);
 					Tem1.set("Visible",true);
 					tabla_objetos.push(Tem1);
 					InsertaOpcionMenuElementos(indice);
-					break;
+					break;*/
 				case "1" : // datos genericos
-					console.log("Crea elm contador ["+indice+"]\n");
-					Tem1=new DatosGenerico(indice);
-					tabla_objetos.push(Tem1);
-					InsertaOpcionMenuElementos(indice);
-					break;
+						console.log("Crea elm contador ["+indice+"]\n");
+						Tem1=new DatosGenerico(indice);
+						tabla_objetos.push(Tem1);
+						InsertaOpcionMenuElementos(indice);
+									break;
+				
 				case "2" : // Altherma
-					console.log("Crea elm TAltherma ["+indice+"]\n");
-					Tem1=new Altherma(indice);
-					tabla_objetos.push(Tem1);
-					InsertaOpcionMenuElementos(indice);
+						console.log("Crea elm TAltherma ["+indice+"]\n");
+						Tem1=new Altherma(indice);
+						tabla_objetos.push(Tem1);
+						InsertaOpcionMenuElementos(indice);
+						break;
 					
 				case "3" : // Trane
-					//cargarRecursos("js/Trane.js");
-					console.log("Crea elm Trane ["+(indice+4)+"]\n");
-					Tem1=new Trane(indice+4);
+					console.log("Crea elm Trane ["+(contadorElementos+4)+"]\n");
+					Tem1=new Trane(contadorElementos+4);
 					tabla_objetos.push(Tem1);
-					InsertaOpcionMenuElementos(indice+4);
+					InsertaOpcionMenuElementos(contadorElementos+4);
 					break;
+				
 				default :
 					break;
 			}
@@ -405,6 +425,54 @@ function CreacionElementos(iNumElementos, nodo )
 		else// si no hay mas elementos se para la creacion del bucle independiente del valor de contador que figure
 			break;
 	}
+	console.log("se han creado "+iNumElementos+" elementos");
+}
+
+
+function CreacionElementos_new (elementos )
+{
+	var valor;
+	var Tem1;
+	debugger;
+	for(var indice=0;indice<elementos.length;indice++)
+	{
+		var TipoElemento=elementos[indice].tipo;
+		switch(TipoElemento)
+		{
+			/*	case "0" : // termostato sistema
+				    console.log("Crea elm Termostato sistema ["+indice+"]\n");
+					Tem1= new TermostatoSistena(indice);
+					Tem1.set("Visible",true);
+					tabla_objetos.push(Tem1);
+					InsertaOpcionMenuElementos(indice);
+					break;*/
+				case "1" : // datos genericos
+						console.log("Crea elm contador ["+elementos[indice].id_hejmo+"]\n");
+						Tem1=new DatosGenerico(elementos[indice].id_hejmo,elementos[indice].name);
+						tabla_objetos.push(Tem1);
+						InsertaOpcionMenuElementos(elementos[indice].id_hejmo);
+									break;
+				
+				case "2" : // Altherma
+						console.log("Crea elm TAltherma ["+elementos[indice].id_hejmo+"]\n");
+						Tem1=new Altherma(elementos[indice].id_hejmo,elementos[indice].name,elementos[indice].mode);
+						tabla_objetos.push(Tem1);
+						InsertaOpcionMenuElementos(elementos[indice].id_hejmo);
+						break;
+					
+				case "3" : // Trane
+					console.log("Crea elm Trane ["+(contadorElementos+4)+"]\n");
+					Tem1=new Trane(contadorElementos+4);
+					tabla_objetos.push(Tem1);
+					InsertaOpcionMenuElementos(contadorElementos+4);
+					break;
+				
+				default :
+					break;
+		}
+		
+	}
+	console.log("se han creado "+elementos.length+" elementos");
 }
 
 // funcion para insertar una opcion en el menu de elementos
@@ -428,7 +496,6 @@ function InsertaOpcionMenuElementos(IdElem )
 		EstadoElemento="1";
 		localStorage["hjm_elm"+IdElem]=EstadoElemento;
 	}
-	debugger;
 	if(EstadoElemento=="0") // El estado es no visible
 	{
 		$("#Elemento"+IdElem).attr("Estado","0");
@@ -501,7 +568,6 @@ function InsertaOpcionMenuElementos(IdElem )
 		EstadoElemento="1";
 		localStorage["hjm_elm"+IdElem]=EstadoElemento;
 	}
-	debugger;
 	if(EstadoElemento=="0") // El estado es no visible
 	{
 		$("#Elemento"+IdElem).attr("Estado","0");
@@ -517,7 +583,7 @@ function InsertaOpcionMenuElementos(IdElem )
 // Funcion que recibe el evento de pulsar el check de visibilidad del elemento
 function MenuElementoCheck(objeto)
 {
-	debugger;
+
 	var IdObjeto=$(this).attr('Elemento');
 	var Estado=localStorage["hjm_elm"+IdObjeto];
 	var color;
@@ -556,7 +622,6 @@ function EvntBtwDespliegue(obj)
 
 function EvntBtnOn_off(obj)
 {
-	debugger;
 	var id_term=parseInt(obj.getAttribute('IdTerm'));
 	var obj=DarObjeto(id_term);
 	if(obj)
@@ -568,7 +633,7 @@ function EvntBtnOn_off(obj)
 }
 
 function ActualizarDatos(obj)
-{	debugger;
+{	
 		llamarServicioCarriots();
 }
 
@@ -602,7 +667,6 @@ function EvntBtnFINAlthermConf(boton,obj)
 	
 	var ObjId=obj.getAttribute('elm');
 	var objeto=DarObjeto(ObjId);
-	debugger;
 	
 	if(objeto)
 	{
@@ -750,7 +814,6 @@ function MostrarErrorFaldon(Identificativo,texto)
 
 function BorrarErrorFaldon(Identificativo)
 {
-	debugger;
 	if(document.getElementById( Identificativo ))
 	{
 		
@@ -766,13 +829,12 @@ function BorrarErrorFaldon(Identificativo)
 }
 function llamarCarriotsMetodoPOST(datos)
 {
-	debugger;
 	var cadenaSalida="{"+"\"protocol\":\"v2\","+"\"checksum\":\"\","+"\"device\":\"In"+g_device+"\","+"\"at\":\"now\","+"\"data\":{"+datos+"}}"
 	
 
 	var carriotsURL = 'http://api.carriots.com/streams';
 
-	//$("#loading").removeClass('hide');
+	$("#loading").removeClass('hide');
 	$.ajax({
 	/*headers : {
 		"carriots.apikey": g_key,

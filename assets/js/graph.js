@@ -55,6 +55,7 @@ var idHejmo=0;
 
 var tablaValoresBruto=null;
 var global_conf;
+var global_elementos;
 
 window.onload = function() {
 	
@@ -74,11 +75,14 @@ window.onload = function() {
 	}
 	else
 	{
+		
 		global_conf=$.parseJSON(sessionStorage.getItem('configuracion'));
-		if(global_conf.data.apikey!=null && global_conf.data.device !=null)
+		global_elementos=$.parseJSON(sessionStorage.getItem('instalacion'));
+		if(global_conf.apikey!=null && global_conf.device !=null && global_elementos != null)
 		{
-			g_key=global_conf.data.apikey;
-			g_device=global_conf.data.device ;
+			g_key=global_elementos.apikey;
+			g_device=global_elementos.device ;
+					
 			LanzamientoHejmo();
 		}
 		else
@@ -86,9 +90,13 @@ window.onload = function() {
 			
 			localStorage.removeItem("hjm_usr");
 			localStorage.removeItem("hjm_pass");
+			localStorage.removeItem("hjm_instalacion");
 			sessionStorage.removeItem("configuracion");
+			sessionStorage.removeItem("instalacion");
 			window.open ('login.html','_self',false);
 		}
+
+
 	}
 
 }
@@ -134,13 +142,14 @@ function LanzamientoHejmo()
         });
 
 
-	//g_key=localStorage["hjm_key"];
-	//g_device=localStorage["hjm_device"];
 	global_conf=$.parseJSON(sessionStorage.getItem('configuracion'));
-	if(global_conf.data.apikey!=null && global_conf.data.device !=null)
+	global_elementos=$.parseJSON(sessionStorage.getItem('instalacion'));
+	if(global_conf.apikey!=null && global_conf.device !=null && global_elementos != null)
 	{
-		g_key=global_conf.data.apikey;
-		g_device=global_conf.data.device ;
+		g_key=global_elementos.apikey;
+		g_device=global_elementos.device ;
+				
+		LanzamientoHejmo();
 	}
     
 		
@@ -638,8 +647,8 @@ function pintaGraficoTablaBruto(tipografico)
 	// carga de informacion en la tabla de grafico ...
 	for(indice=1;indice<tablaValoresBruto.length;indice++)
 	{
-		//lineChartData.data.unshift({x: tablaValoresBruto[indice].fecha+offsetTime , y: tablaValoresBruto[indice].diferencia }); // se inserta el dato en la tabla ¡¡¡¡ al principio !!!!!
-		lineChartData.data.unshift({x: tablaValoresBruto[indice].fecha , y: tablaValoresBruto[indice].diferencia }); // se inserta el dato en la tabla ¡¡¡¡ al principio !!!!!
+		//lineChartData.data.unshift({x: tablaValoresBruto[indice].fecha+offsetTime , y: tablaValoresBruto[indice].diferencia }); // se inserta el dato en la tabla ï¿½ï¿½ï¿½ï¿½ al principio !!!!!
+		lineChartData.data.unshift({x: tablaValoresBruto[indice].fecha , y: tablaValoresBruto[indice].diferencia }); // se inserta el dato en la tabla ï¿½ï¿½ï¿½ï¿½ al principio !!!!!
 	}
 	
 	
@@ -1243,8 +1252,8 @@ function generarTexto(datos) {
    }
 
 
-    //El contructor de Blob requiere un Array en el primer parámetro
-    //así que no es necesario usar toString. el segundo parámetro
+    //El contructor de Blob requiere un Array en el primer parï¿½metro
+    //asï¿½ que no es necesario usar toString. el segundo parï¿½metro
     //es el tipo MIME del archivo
     return new Blob(texto, {
         type: 'text/plain'

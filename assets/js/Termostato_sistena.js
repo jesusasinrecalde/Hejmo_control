@@ -9,29 +9,34 @@ function TermostatoSistena(idTerm)
 	this.parametros={temperatura:35.5, modo:0,temperaturaAmbiente:30.5,ValvulaAbierta:0}; // datos que se recibe del servicio pass
 	this.configuracion={temperatura:35.5, modo:0, Caption:""}; // datos que se envia al servicio pass , son los que se modifican graficamente
 	
-		
-	var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#termostato_tipo_2');
-	
-	// Elementos graficos propios del objeto
-	clone.getElementById("tempAmbiente").id="tempAmbiente"+idTerm;
-	
-	clone.getElementById("marco_temp").id  ="marco_temp"+this.Id;
-	clone.getElementById("btn_mas").id     ="btn_mas"+this.Id;
-	clone.getElementById("temp_grande").id ="temp_grande"+this.Id;
-	clone.getElementById("temp_peque").id  ="temp_peque"+this.Id;
-	clone.getElementById("btn_menos").id   ="btn_menos"+this.Id;
-	
-	$("#contenedor").append(clone); // se añade el objeto al documento DOM dentro del elemento contenedor ...
-	
-	
-	document.getElementById("btn_mas"+this.Id).setAttribute( "IdTerm",this.Id.toString());
-	document.getElementById("btn_menos"+this.Id).setAttribute( "IdTerm",this.Id.toString());
-	
-	ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
-	
-	
-	this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
-	
+	// Cargamos la plantilla asociada 
+	$("#plantillas").load("assets/template/termostato_tipo_2_template.html",function(response, status, xhr)
+		 {
+		if (status == "success")
+		{
+			var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#termostato_tipo_2');
+			
+			// Elementos graficos propios del objeto
+			clone.getElementById("tempAmbiente").id="tempAmbiente"+idTerm;
+			
+			clone.getElementById("marco_temp").id  ="marco_temp"+this.Id;
+			clone.getElementById("btn_mas").id     ="btn_mas"+this.Id;
+			clone.getElementById("temp_grande").id ="temp_grande"+this.Id;
+			clone.getElementById("temp_peque").id  ="temp_peque"+this.Id;
+			clone.getElementById("btn_menos").id   ="btn_menos"+this.Id;
+			
+			$("#contenedor").append(clone); // se añade el objeto al documento DOM dentro del elemento contenedor ...
+			
+			
+			document.getElementById("btn_mas"+this.Id).setAttribute( "IdTerm",this.Id.toString());
+			document.getElementById("btn_menos"+this.Id).setAttribute( "IdTerm",this.Id.toString());
+			
+			ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
+			
+			
+			this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
+		}
+	});	
 };
 
 TermostatoSistena.prototype = Object.create(ObjectoGenerico.prototype); 

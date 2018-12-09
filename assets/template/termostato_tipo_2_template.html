@@ -1,0 +1,68 @@
+<template id="termostato_tipo_2">
+	
+    <div class="content container-fluid row col-md-5" id="obj_tipo2" align="center">
+    <table class="tg">
+      
+      <tr class="header" id="marco_superior" colspan = "6">
+        <td class="tg-228w"  >
+            <img class ="image_cab" id="icono_despliegue"  src="assets\img\arrow_down.png" onclick="EvntBtwDespliegue(this)"  border="0" width="15" height="20" />
+        </td>
+        <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Temporizador1</div></td>
+        <td class="tg-228w" id="tempAmbiente" >25.5�</td>
+        <td></td>
+        <td></td>
+        <td class="tg-228w" id="obj_onoff" >
+            <img class ="image_cab" id="icono_OnOffSup"  src="assets\img\on.png" onclick="EvntBtnOn_off(this)"  border="0" width="20" height="20" />
+        </td>	
+      </tr >
+      <tr  id="marco_inf" style='display:none;'>
+        <!-- td id="marco_inf" -->
+        <div class="div_marco_inf" >
+            <td  colspan = "6" >
+            <table align="center"  >
+            
+            <tr  class="tg-s6z2" id="zona_iconos" colspan="6"  >
+                <td >
+                    
+                    <img  id="term_modo"   src="assets\img\radiador.png"  width="20" height="20" />
+                </td>
+                <td>
+                    <img    src="assets\img\estrella.png" width="20" height="20" />
+                </td>
+                <td>
+                    <img    src="assets\img\reload.png" width="20" height="20" />
+                 </td>
+                    
+                    
+            </tr>
+            <tr id="marco_temp" class="tg-s6z2" colspan="3" >
+                <td align="left" >
+                    <a href="#"  id="btn_mas" onclick="EvnSubirTemp(this)">
+                        <img class ="image_cab" id="icono_func_mas"  src="assets\img\mas.png" border="0" width="40" height="40" />
+                    </a>
+                </td>
+                <td   width="300" align="center"><div  id="temp_grande" class="temp_grande">35.5�</div><div  id="temp_peque" >35.5�</div></td>
+                <td align="righ">
+                    <a href="#"  id="btn_menos" onclick="EvnBajarTemp(this)">
+                        <img class ="image_cab" id="icono_func_menos"  src="assets\img\menos.png" border="0" width="40" height="40" />
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td id="on_off" colspan ="6" align="center">
+                    <a href="#"  id="btn_onoff" onclick="EvntBtnOn_off(this)">
+                        <img class ="image_cab" id="icono_OnOffInf"  src="assets\img\on.png" border="0" width="60" height="60" />
+                    </a>
+    
+                </td>
+            </tr>
+            
+            </table>
+            </td>
+        </div>
+        <!-- /td marco_inf -->
+      </tr>
+      </table>
+    </div>
+    </template>
+    

@@ -1,0 +1,165 @@
+<template id="DatosGenerico">
+	
+    <div class="content container-fluid row col-md-5" id="obj_tipo2" align="center">
+    <table class="tg">
+      
+      <tr class="header" id="marco_superior" >
+        <td class="tg-228w"  >
+            <img class ="image_cab" id="icono_despliegue"  src="assets/img/arrow_down.png" onclick="EvntBtwDespliegue(this)"  border="0" width="15" height="20" />
+        </td>
+        <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Datos</div></td>
+        <td> 
+            <img class ="image_cab" id="icono_consumo"  src="assets/img/igual.png"  border="0" width="20" height="20" />		
+        
+        </td>
+        <td><i  id="icono_error" class="fa fa-exclamation-triangle icono_warning " aria-hidden="true" ></i></td>
+        
+        <td class="tg-228w">
+            <div  id="CarbonEmitidos" >----</div>
+        </td>
+        <td class="tg-228w" id="obj_onoff" >
+            <img class ="image_cab" id="icono_OnOffSup"  src="assets/img/on.png" onclick="EvntBtnOn_off(this)"  border="0" width="20" height="20" />
+        </td>	
+      </tr >
+      <tr  id="marco_inf" style='display:none;'>
+            
+                
+                
+                
+        <!-- td id="marco_inf" -->
+        <div class="div_marco_inf" >
+            
+            <td  colspan="6" >
+                    
+                    <table align ="center">
+                    <tr  class="tg-s6z2" id="zona_alarma" colspan="1"  >
+                        
+                    </tr>
+                    <tr>
+                    <td>
+                    <div class="cuadro"  align="center">
+                        <div class="consumo_main_medio" id="consumo3" align="center">1.17 Kwh</div>
+                        <div class="consumo_main_small" id="periodo3" align="center">16:40 - 15:00</div>
+                    </div>
+                    </td>
+                    <td>
+                
+                    <div class="cuadro"  align="center">
+                        <div class="consumo_main_medio" id="consumo2" align="center">0,08 Kwh</div >
+                        <div class="consumo_main_small" id="periodo2" align="center">16:40 - 15:00</div>
+                    </div>
+                    </td>
+                    </tr>
+                    </table>
+                    
+                    <table align = "center">
+                        <tr>
+                                <td >
+                                
+                                    <table>
+                                    <tr >
+                                        <td>
+                                            <div  align="right">
+                                            <img class ="image_cab"   id="icono_consumo_main"  src="./graph/igual.png"  border="0" width="30" height="30" />
+                                            </div>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr >
+                                        <td >
+                                            <div class="consumo_main_small" id="periodo_main">16:00 - 17:40</div>
+                                        </td>
+                                    </tr>
+                                    </table>
+                                </td>
+                                <td >
+                                    
+                                    <div class="consumo_main" id="consumo_main">
+                                        1,52 kwh
+                                    </div>
+                                    
+                                    
+                                </td>
+                                
+                        </tr>	
+                            
+                    </table>
+                            
+                            
+                            
+                <table align="center">
+                    <tr>
+                        <td>
+                            <div class="cuadro">
+                                <div align="center">
+                                    <img class ="image_cab"   id="icono_consumo"  src="assets/img/cerdito.png"  border="0" width="40" height="40" />
+                                </div>
+                                    <div class="consumo_main_medio" id="coste">0,27?</div>	
+                            </div>
+                                        
+                            
+                        </td>
+                        <td>
+                            <div class="cuadro">
+                                <div align="center">
+                                    <img class ="image_cab"   id="icono_consumo"  src="assets/img/co2.png"  border="0" width="40" height="40" />
+                                </div>
+                                    <div class="consumo_main_medio" id="emision">0,27kg</div>	
+                            </div>
+                                        
+                            
+                        </td>
+                        <td>
+                            <div class="cuadro">
+                                <div align="center">
+                                    <img class ="image_cab"   id="icono_consumo"  src="assets/img/rayo.png" border="0" width="40" height="40" />
+                                </div>
+                                    <div class="consumo_main_medio" id="tension">222.4V</div>	
+                            </div>
+                                        
+                            
+                        </td>
+                        <td>
+                            <div class="cuadro">
+                                <div align="center">
+                                    <img class ="image_cab"   id="icono_consumo"  src="assets/img/amperaje.png" border="0" width="60" height="40" />
+                                </div>
+                                    <div class="consumo_main_medio" id="corriente">54.5A</div>	
+                            </div>
+                                        
+                            
+                        </td>
+                    </tr>
+                </table>
+                <table align="center"  >
+                    
+                <tr id="marco_principal" class="tg-s6z2" colspan="3" >
+                        
+                                
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td id="on_off" colspan ="6" align="center">
+                            <a href="#"  id="btn_onoff" onclick="EvntBtnOn_off(this)">
+                                <img class ="image_cab" id="icono_OnOffInf"  src="assets\img\on.png" border="0" width="60" height="60" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                       <td class="tg-228w" id="obj_onoff" align="left" >
+                            <button type="button" id="icono_graph" class="btn btn-default boton_izd  image_cab" onclick="EvntBtngraph(this)">
+                                 <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                            </button>
+                            
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </div>
+        <!-- /td marco_inf -->
+      </tr>
+      </table>
+    </div>
+    </template>
+    

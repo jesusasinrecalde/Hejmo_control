@@ -1,6 +1,6 @@
 var TextoMeteo ;
 
-function DatosGenerico(idTerm)
+function DatosGenerico(idTerm,nombre)
 {
 	"use strict";
 	
@@ -8,57 +8,75 @@ function DatosGenerico(idTerm)
 	debugger;
 
 
-	ObjectoGenerico.call(this,idTerm,1,"Consumo","Consumo"+idTerm,false,"#91FF83","#D6FFD1","#63AD5A","#669");
+	ObjectoGenerico.call(this,idTerm,1,nombre,"Consumo"+idTerm,false,"#91FF83","#D6FFD1","#63AD5A","#669");
 	
 	this.Id=idTerm;
 	this.parametros={dat1:35.5, dat2:0,dat3:30.5,dat4:0,dat5:0,dat6:0,dat7:0,dat8:0,dat9:0,valor1:"",valor2:0,periodo1:"",consumo2:0,periodo2:"",consumo3:0,periodo3:""}; // datos que se recibe del servicio pass
 	//this.configuracion={temperatura:35.5, modo:0, Caption:""}; // datos que se envia al servicio pass , son los que se modifican graficamente
 	this.ConsumoHora=new Array(6);
-		
-	var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#DatosGenerico');
 	
-	
-	// Elementos graficos propios del objeto
-	clone.getElementById("CarbonEmitidos").id   ="CarbonEmitidos"+this.Id;
-	clone.getElementById("marco_principal").id  ="marco_principal"+this.Id;
-	
-	clone.getElementById("icono_graph").id ="icono_graph"+this.Id;
-	clone.getElementById("icono_consumo").id ="icono_consumo"+this.Id;
-	clone.getElementById("consumo_main").id ="consumo_main"+this.Id;
-	clone.getElementById("icono_consumo_main").id ="icono_consumo_main"+this.Id;
-	clone.getElementById("periodo_main").id ="periodo_main"+this.Id;
-	clone.getElementById("coste").id ="coste"+this.Id;
-	clone.getElementById("emision").id ="emision"+this.Id;
-	clone.getElementById("tension").id ="tension"+this.Id;
-	clone.getElementById("corriente").id ="corriente"+this.Id;
-	
-	clone.getElementById("consumo2").id ="consumo2"+this.Id;
-	clone.getElementById("periodo2").id ="periodo2"+this.Id;
-	
-	clone.getElementById("consumo3").id ="consumo3"+this.Id;
-	clone.getElementById("periodo3").id ="periodo3"+this.Id;
-	
-	
-	$("#contenedor").append(clone); // se a�ade el objeto al documento DOM dentro del elemento contenedor ...
-	
-	document.getElementById("icono_graph"+this.Id).setAttribute( "IdTerm",this.Id.toString());
-	
-	ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
-	
-	//llamarServicioCarriotsNummObjt(this.Id,6);
-	
-	this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
+	this.cargaInterfazGrafico();
 	
 };
 
 DatosGenerico.prototype = Object.create(ObjectoGenerico.prototype); 
+
+
+DatosGenerico.prototype.cargaInterfazGrafico= function()
+{
+// Cargamos la plantilla asociada 
+$("#plantillas").load("assets/template/datosGenerico_template.html",(response, status, xhr)=> {
+	if (status == "success")
+	{
+		var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#DatosGenerico');
+		
+		
+		// Elementos graficos propios del objeto
+		clone.getElementById("CarbonEmitidos").id   ="CarbonEmitidos"+this.Id;
+		clone.getElementById("marco_principal").id  ="marco_principal"+this.Id;
+		
+		clone.getElementById("icono_graph").id ="icono_graph"+this.Id;
+		clone.getElementById("icono_consumo").id ="icono_consumo"+this.Id;
+		clone.getElementById("consumo_main").id ="consumo_main"+this.Id;
+		clone.getElementById("icono_consumo_main").id ="icono_consumo_main"+this.Id;
+		clone.getElementById("periodo_main").id ="periodo_main"+this.Id;
+		clone.getElementById("coste").id ="coste"+this.Id;
+		clone.getElementById("emision").id ="emision"+this.Id;
+		clone.getElementById("tension").id ="tension"+this.Id;
+		clone.getElementById("corriente").id ="corriente"+this.Id;
+		
+		clone.getElementById("consumo2").id ="consumo2"+this.Id;
+		clone.getElementById("periodo2").id ="periodo2"+this.Id;
+		
+		clone.getElementById("consumo3").id ="consumo3"+this.Id;
+		clone.getElementById("periodo3").id ="periodo3"+this.Id;
+		
+		
+		$("#contenedor").append(clone); // se a�ade el objeto al documento DOM dentro del elemento contenedor ...
+		
+		document.getElementById("icono_graph"+this.Id).setAttribute( "IdTerm",this.Id.toString());
+		
+		ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
+		
+		//llamarServicioCarriotsNummObjt(this.Id,6);
+		this.impresoGraficos=true;
+		this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
+	}
+});	
+
+}
 
 /** centraliza en una una funcion todas los cambios que se produce en el objeto 
 */
 
 DatosGenerico.prototype.Actualizar=function()
 {
-	//var elem1=document.getElementById('dat1'+this.Id);
+	// si no se han creado los elementos graficos no tiene sentido procesar 
+	// los datos 
+	if(!this.impresoGraficos)
+		return;	
+	
+		//var elem1=document.getElementById('dat1'+this.Id);
     //elem1.innerHTML=this.parametros.dat1+" V";
 	
 	var elem1=document.getElementById('tension'+this.Id);

@@ -30,6 +30,7 @@ function ObjectoGenerico(idTerm,Tipo,Caption,Nombre,bflgVerBTNONOFF,SUP_ColorFon
 	this.SUP_ColorActivo=SUP_ColorActivo;
 	this.SUP_ColorFondoInactivo=SUP_ColorFondoInactivo;
 	this.SUP_ColorInactivo=SUP_ColorInactivo;
+	this.impresoGraficos=false;
 	
 };
 
